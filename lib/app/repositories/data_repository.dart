@@ -4,7 +4,7 @@ import 'package:rest_api_practoce/app/services/api.dart';
 import 'package:rest_api_practoce/app/services/api_service.dart';
 
 class DataRepository {
-  DataRepository(@required this.apiService);
+  DataRepository({@required this.apiService});
   final APIService apiService;
 
   String _accessToken;
