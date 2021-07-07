@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:rest_api_practoce/app/repositories/data_repository.dart';
 import 'package:rest_api_practoce/app/services/api.dart';
 import 'package:rest_api_practoce/app/ui/endpoint_card.dart';
 
@@ -8,6 +10,21 @@ class DashBoard extends StatefulWidget {
 }
 
 class _DashBoardState extends State<DashBoard> {
+  int _cases;
+
+  @override
+  void initState() {
+    print('here!');
+    super.initState();
+    _updateData();
+  }
+
+  Future<void> _updateData() async {
+    final dataRepository = Provider.of<DataRepository>(context, listen: false);
+    final cases = await dataRepository.getEndpointData(Endpoint.cases);
+    setState(() => _cases = cases);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,7 +35,7 @@ class _DashBoardState extends State<DashBoard> {
         children: <Widget>[
           EndpointCard(
             endpoint: Endpoint.cases,
-            value: 123,
+            value: _cases,
           ),
         ],
       ),

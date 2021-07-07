@@ -11,14 +11,13 @@ class DataRepository {
 
   Future<int> getEndpointData(Endpoint endpoint) async {
     try {
-      if (_accessToken != null) {
+      if (_accessToken == null) {
         _accessToken = await apiService.getAccessToken();
       }
-
       return await apiService.getEndpointData(
           accessToken: _accessToken, endpoint: endpoint);
     } on Response catch (response) {
-      if (response.statusCode == 402) {
+      if (response.statusCode == 401) {
         _accessToken = await apiService.getAccessToken();
         return await apiService.getEndpointData(
             accessToken: _accessToken, endpoint: endpoint);
