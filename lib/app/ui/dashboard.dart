@@ -31,13 +31,16 @@ class _DashBoardState extends State<DashBoard> {
       appBar: AppBar(
         title: Text('コロ助'),
       ),
-      body: ListView(
-        children: <Widget>[
-          EndpointCard(
-            endpoint: Endpoint.cases,
-            value: _cases,
-          ),
-        ],
+      body: RefreshIndicator(
+        onRefresh: _updateData,
+        child: ListView(
+          children: <Widget>[
+            EndpointCard(
+              endpoint: Endpoint.cases,
+              value: _cases,
+            ),
+          ],
+        ),
       ),
     );
   }
