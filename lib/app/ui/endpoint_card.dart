@@ -4,6 +4,13 @@ import 'package:rest_api_practoce/app/services/api.dart';
 class EndpointCard extends StatelessWidget {
   final Endpoint endpoint;
   final int value;
+  static Map<Endpoint, String> _cardTitles = {
+    Endpoint.cases: 'Cases',
+    Endpoint.casesSuspected: 'Suspected',
+    Endpoint.casesConfirmed: 'Confirmed',
+    Endpoint.deaths: 'Deaths',
+    Endpoint.recovered: 'Recovered',
+  };
 
   const EndpointCard({Key key, this.endpoint, this.value}) : super(key: key);
 
@@ -18,7 +25,7 @@ class EndpointCard extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               Text(
-                'cases',
+                _cardTitles[endpoint],
                 style: Theme.of(context).textTheme.headline5,
               ),
               Text(
