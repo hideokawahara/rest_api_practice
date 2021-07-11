@@ -4,6 +4,7 @@ import 'package:rest_api_practoce/app/repositories/data_repository.dart';
 import 'package:rest_api_practoce/app/repositories/endpoints_data.dart';
 import 'package:rest_api_practoce/app/services/api.dart';
 import 'package:rest_api_practoce/app/ui/endpoint_card.dart';
+import 'package:rest_api_practoce/app/ui/last_updated_status_text.dart';
 
 class DashBoard extends StatefulWidget {
   @override
@@ -36,6 +37,11 @@ class _DashBoardState extends State<DashBoard> {
         onRefresh: _updateData,
         child: ListView(
           children: <Widget>[
+            LastUpdatedStatusText(
+              text: _endpointsData != null
+                  ? _endpointsData.values[Endpoint.cases].date?.toString() ?? ''
+                  : '',
+            ),
             for (var endpoint in Endpoint.values)
               EndpointCard(
                 endpoint: endpoint,
