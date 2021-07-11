@@ -40,7 +40,7 @@ class _DashBoardState extends State<DashBoard> {
               EndpointCard(
                 endpoint: endpoint,
                 value: _endpointsData != null
-                    ? _endpointsData.values[endpoint]
+                    ? _endpointsData.values[endpoint].value
                     : null,
               ),
           ],
