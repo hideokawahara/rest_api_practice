@@ -29,6 +29,11 @@ class _DashBoardState extends State<DashBoard> {
 
   @override
   Widget build(BuildContext context) {
+    final formatter = LastUpdatedDateFormatter(
+      lastUpdated: _endpointsData != null
+          ? _endpointsData.values[Endpoint.cases].date
+          : null,
+    );
     return Scaffold(
       appBar: AppBar(
         title: Text('コロ助'),
@@ -38,9 +43,7 @@ class _DashBoardState extends State<DashBoard> {
         child: ListView(
           children: <Widget>[
             LastUpdatedStatusText(
-              text: _endpointsData != null
-                  ? _endpointsData.values[Endpoint.cases].date?.toString() ?? ''
-                  : '',
+              text: formatter.lastUpdatedStatusText(),
             ),
             for (var endpoint in Endpoint.values)
               EndpointCard(
