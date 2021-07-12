@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:rest_api_practoce/app/repositories/data_repository.dart';
@@ -5,6 +7,7 @@ import 'package:rest_api_practoce/app/repositories/endpoints_data.dart';
 import 'package:rest_api_practoce/app/services/api.dart';
 import 'package:rest_api_practoce/app/ui/endpoint_card.dart';
 import 'package:rest_api_practoce/app/ui/last_updated_status_text.dart';
+import 'package:rest_api_practoce/app/ui/show_alert_dialog.dart';
 
 class DashBoard extends StatefulWidget {
   @override
@@ -22,9 +25,18 @@ class _DashBoardState extends State<DashBoard> {
   }
 
   Future<void> _updateData() async {
-    final dataRepository = Provider.of<DataRepository>(context, listen: false);
-    final endpointsData = await dataRepository.getAllEndpointsData();
-    setState(() => _endpointsData = endpointsData);
+    try {
+      final dataRepository =
+          Provider.of<DataRepository>(context, listen: false);
+      final endpointsData = await dataRepository.getAllEndpointsData();
+      setState(() => _endpointsData = endpointsData);
+    } on SocketException catch (_) {
+      showAlertDialog(
+          context: context,
+          title: '通信エラー',
+          content: 'データが受信できません',
+          defaultActionText: 'OK');
+    }
   }
 
   @override
