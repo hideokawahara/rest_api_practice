@@ -36,6 +36,12 @@ class _DashBoardState extends State<DashBoard> {
           title: '通信エラー',
           content: 'データが受信できません',
           defaultActionText: 'OK');
+    } catch (_) {
+      showAlertDialog(
+          context: context,
+          title: '不明なエラー',
+          content: 'よくわかりません',
+          defaultActionText: 'OK');
     }
   }
 
