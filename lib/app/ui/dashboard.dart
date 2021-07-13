@@ -21,6 +21,8 @@ class _DashBoardState extends State<DashBoard> {
   void initState() {
     print('here!');
     super.initState();
+    final dataRepository = Provider.of<DataRepository>(context, listen: false);
+    _endpointsData = dataRepository.getAllEndpointsCachedData();
     _updateData();
   }
 

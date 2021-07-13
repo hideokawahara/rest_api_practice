@@ -3,11 +3,13 @@ import 'package:http/http.dart';
 import 'package:rest_api_practoce/app/repositories/endpoints_data.dart';
 import 'package:rest_api_practoce/app/services/api.dart';
 import 'package:rest_api_practoce/app/services/api_service.dart';
+import 'package:rest_api_practoce/app/services/date_cache_service.dart';
 import 'package:rest_api_practoce/app/services/endpoint_data.dart';
 
 class DataRepository {
-  DataRepository({@required this.apiService});
+  DataRepository({@required this.apiService, @required this.dataCacheService});
   final APIService apiService;
+  final DataCacheService dataCacheService;
 
   String _accessToken;
 
@@ -17,10 +19,15 @@ class DataRepository {
             accessToken: _accessToken, endpoint: endpoint),
       );
 
-  Future<EndpointsData> getAllEndpointsData() async =>
-      await _getDataRefreshingToken<EndpointsData>(
-        onGetData: _getAllEndpointsData,
-      );
+  EndpointsData getAllEndpointsCachedData() => dataCacheService.getData();
+
+  Future<EndpointsData> getAllEndpointsData() async {
+    final endpointsData = await _getDataRefreshingToken<EndpointsData>(
+      onGetData: _getAllEndpointsData,
+    );
+    await dataCacheService.setData(endpointsData);
+    return endpointsData;
+  }
 
   Future<T> _getDataRefreshingToken<T>({Future<T> Function() onGetData}) async {
     try {
