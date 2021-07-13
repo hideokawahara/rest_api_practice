@@ -51,7 +51,7 @@ class _DashBoardState extends State<DashBoard> {
   Widget build(BuildContext context) {
     final formatter = LastUpdatedDateFormatter(
       lastUpdated: _endpointsData != null
-          ? _endpointsData.values[Endpoint.cases].date
+          ? _endpointsData.values[Endpoint.cases]?.date
           : null,
     );
     return Scaffold(
@@ -69,7 +69,7 @@ class _DashBoardState extends State<DashBoard> {
               EndpointCard(
                 endpoint: endpoint,
                 value: _endpointsData != null
-                    ? _endpointsData.values[endpoint].value
+                    ? _endpointsData.values[endpoint]?.value
                     : null,
               ),
           ],
