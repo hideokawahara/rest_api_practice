@@ -1,4 +1,4 @@
-# rest_api_practoce
+# rest_api_practice
 
 A new Flutter project.
 
